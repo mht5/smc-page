@@ -1,0 +1,71 @@
+<app-header [title]="title"></app-header>
+
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="company.name">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Sector</mat-label>
+    <mat-select [(ngModel)]="company.sectorId">
+      <mat-option value="sector1">sector1</mat-option>
+      <mat-option value="sector2">sector1</mat-option>
+    </mat-select>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Turnover</mat-label>
+    <input matInput [(ngModel)]="company.turnover">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>CEO</mat-label>
+    <input matInput [(ngModel)]="company.ceo">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Voard of Directors</mat-label>
+    <textarea matInput [(ngModel)]="company.boardOfDirectors"></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Brief Writeup</mat-label>
+    <textarea matInput [(ngModel)]="company.briefWriteup"></textarea>
+  </mat-form-field><br />
+
+  IPO Related Items<br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Stock Exchange ID</mat-label>
+    <input matInput [(ngModel)]="ipo.stockExchangeId">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Stock Code</mat-label>
+    <input matInput [(ngModel)]="ipo.stockCode">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Price Per Share</mat-label>
+    <input matInput [(ngModel)]="ipo.pricePerShare">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Number of Shares</mat-label>
+    <input matInput [(ngModel)]="ipo.numberOfShares">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Open Date</mat-label>
+    <input matInput [(ngModel)]="ipo.openDate" [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Open Time</mat-label>
+    <mat-select [(ngModel)]="ipo.openTime">
+      <mat-option *ngFor="let hour of hours" [value]="hour.time">
+        {{hour.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Remarks</mat-label>
+    <input matInput [(ngModel)]="ipo.remarks">
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="create()" color="primary" class="button">Create</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

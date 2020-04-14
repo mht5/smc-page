@@ -1,0 +1,13 @@
+.content-center {
+  padding-top: 2em;
+  text-align: center;
+}
+
+.input {
+  width: 30%;
+}
+
+.button {
+  width: 33%;
+  font-size: 1em;
+}

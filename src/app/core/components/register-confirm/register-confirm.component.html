@@ -1,0 +1,29 @@
+<div class="col-12 content-center">
+  <h1>Confirm Registration</h1>
+</div>
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="user.email" disabled>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="user.username" disabled>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Mobile Number</mat-label>
+    <input matInput [(ngModel)]="user.mobileNumber" disabled>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="password" type="password">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Confirm Password</mat-label>
+    <input matInput [(ngModel)]="confirmPassword" type="password">
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="confirm()" color="primary" class="button">Confirm</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

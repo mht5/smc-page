@@ -1,0 +1,19 @@
+.content-center {
+  padding-top: 2em;
+  text-align: center;
+}
+
+.left {
+  width: 50%;
+  text-align: right;
+  float: left;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.right {
+  width: 50%;
+  text-align: left;
+  float: left;
+  margin-top: 1em;
+}

@@ -1,0 +1,66 @@
+<app-header [title]="title"></app-header>
+
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Compare Type</mat-label>
+    <mat-select [(ngModel)]="compareType">
+      <mat-option value="compareBetweenCompanies">Compare Between Companies</mat-option>
+      <mat-option value="compareBetweenTimePeriods">Compare Between Time Periods</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Stock Exchange</mat-label>
+    <mat-select [(ngModel)]="stockExchangeId">
+      <mat-option value="BSE">BSE</mat-option>
+      <mat-option value="NSE">NSE</mat-option>
+    </mat-select>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Company Name 1</mat-label>
+    <mat-select [(ngModel)]="companyName1">
+      <mat-option value="company1">Company 1</mat-option>
+      <mat-option value="company2">Company 2</mat-option>
+      <mat-option value="company3">Company 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Company Name 2</mat-label>
+    <mat-select [(ngModel)]="companyName2">
+      <mat-option value="company1">Company 1</mat-option>
+      <mat-option value="company2">Company 2</mat-option>
+      <mat-option value="company3">Company 3</mat-option>
+    </mat-select>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>From Date</mat-label>
+    <input matInput [(ngModel)]="fromDate" [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>To Date</mat-label>
+    <input matInput [(ngModel)]="toDate" [matDatepicker]="picker1" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="generateChart()" color="primary" class="button">Generate Chart</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>
+<div class="col-12 content-center" *ngIf="chartReady">
+  <mat-divider style="margin-bottom: 1em;"></mat-divider>
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
+  <div style="width: 30%; margin-left: 35%; padding-bottom: 1em;">
+    <button mat-button (click)="randomize()" color="primary" class="button">{{updateButtonLabel}}</button>
+    <button mat-button (click)="downloadChart()" color="primary" class="button">Download Chart</button>
+  </div>
+</div>

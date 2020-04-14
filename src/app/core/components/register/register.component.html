@@ -1,0 +1,21 @@
+<div class="col-12 content-center">
+  <h1>Register</h1>
+</div>
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="user.username">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="user.email">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Mobile Number</mat-label>
+    <input matInput [(ngModel)]="user.mobileNumber">
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="register()" color="primary" class="button">Register</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

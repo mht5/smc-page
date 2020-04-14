@@ -1,0 +1,28 @@
+<app-header [title]="title"></app-header>
+
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="user.email" disabled>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="user.username">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Mobile Number</mat-label>
+    <input matInput [(ngModel)]="user.mobileNumber">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>New Password</mat-label>
+    <input matInput [(ngModel)]="newPassword" type="password">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Confirm Password</mat-label>
+    <input matInput [(ngModel)]="confirmPassword" type="password">
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="update()" color="primary" class="button">Update</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="columns mat-elevation-z4">
+  <div class="column col-2">
+    <button mat-button color="primary" class="nav-button">Stock Exchange Charting</button>
+  </div>
+  <div class="column col-2" *ngIf="isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/stock-exchange">Manage Exchanges</a>
+  </div>
+  <div class="column col-2" *ngIf="isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/company">Manage Companies</a>
+  </div>
+  <div class="column col-2" *ngIf="isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/company/import-price">Import Data</a>
+  </div>
+  <div class="column col-2" *ngIf="!isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/company">Companies</a>
+  </div>
+  <div class="column col-2" *ngIf="!isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/company/list-ipo">IPOs</a>
+  </div>
+  <div class="column col-2" *ngIf="!isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/company/compare-companies">Compare Companies</a>
+  </div>
+  <div class="column col-2" *ngIf="!isAdmin">
+    <a mat-button color="primary" class="nav-button" href="/update-profile">Update Profile</a>
+  </div>
+  <div class="column col-2">
+    <a mat-button color="primary" class="nav-button" href="/login">Logout</a>
+  </div>
+</div>

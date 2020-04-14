@@ -1,0 +1,18 @@
+<div class="col-12 content-center">
+  <h1>Login</h1>
+</div>
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="username">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" [(ngModel)]="password">
+  </mat-form-field><br/>
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="login()" color="primary" class="button">Login</button>
+    <button mat-button (click)="register()" color="primary" class="button">Register</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

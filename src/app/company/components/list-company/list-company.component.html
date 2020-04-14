@@ -1,0 +1,59 @@
+<app-header [title]="title"></app-header>
+<button mat-stroked-button (click)="addCompany()" color="primary" style="margin-left: 4.2em; margin-bottom: 1em;" *ngIf="isAdmin">Add New Company</button>
+
+<div class="table-container">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Company Name</mat-label>
+    <input matInput [(ngModel)]="companyName">
+  </mat-form-field>
+  <button mat-stroked-button (click)="findCompany()" color="primary" style="margin-left: 1em;">Find</button>
+
+  <mat-form-field style="width: 100%; margin-top: 1em;">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <table class="mat-elevation-z3" mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="radio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <td mat-cell *matCellDef="let row"> <mat-radio-button (change)="updateSelected(row)"></mat-radio-button> </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="sectorId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sector ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.sectorId}} </td>
+    </ng-container>
+    <ng-container matColumnDef="turnover">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Turnover </th>
+      <td mat-cell *matCellDef="let row"> {{row.turnover}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ceo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CEO </th>
+      <td mat-cell *matCellDef="let row"> {{row.ceo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="boardOfDirectors">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Board of Directors </th>
+      <td mat-cell *matCellDef="let row"> {{row.boardOfDirectors}} </td>
+    </ng-container>
+    <ng-container matColumnDef="listedInStockExchanges">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Listed in Stock Exchanges </th>
+      <td mat-cell *matCellDef="let row"> {{row.listedInStockExchanges}} </td>
+    </ng-container>
+    <ng-container matColumnDef="briefWriteup">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Brief Writeup </th>
+      <td mat-cell *matCellDef="let row"> {{row.briefWriteup}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<div style="width: 60%; margin-left: 20%; margin-top: 1em;" *ngIf="isAdmin">
+  <button mat-stroked-button (click)="edit()" color="primary" style="width: 22%;">Edit</button>
+  <button mat-stroked-button (click)="updateIpo()" color="primary" style="width: 22%; margin-left: 4%;">Update IPO</button>
+  <button mat-stroked-button (click)="checkMissingData()" color="primary" style="width: 22%; margin-left: 4%;">Missing Data</button>
+  <button mat-stroked-button (click)="deactivate()" color="primary" style="width: 22%; margin-left: 4%;">Deactivate</button>
+</div>

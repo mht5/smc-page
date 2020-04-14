@@ -1,0 +1,35 @@
+<app-header [title]="title"></app-header>
+
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="company.name" disabled>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Sector</mat-label>
+    <mat-select [(ngModel)]="company.sectorId">
+      <mat-option value="sector1">sector1</mat-option>
+      <mat-option value="sector2">sector1</mat-option>
+    </mat-select>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Turnover</mat-label>
+    <input matInput [(ngModel)]="company.turnover">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>CEO</mat-label>
+    <input matInput [(ngModel)]="company.ceo">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Voard of Directors</mat-label>
+    <textarea matInput [(ngModel)]="company.boardOfDirectors"></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Brief Writeup</mat-label>
+    <textarea matInput [(ngModel)]="company.briefWriteup"></textarea>
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="update()" color="primary" class="button">Update</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

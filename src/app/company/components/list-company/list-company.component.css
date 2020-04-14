@@ -1,0 +1,16 @@
+.table-container {
+  width: 90%;
+  margin-left: 5%;
+}
+
+table {
+  width: 100%;
+}
+
+td, th {
+  width: 12.5%;
+  text-align: center;
+}
+
+.input {
+}

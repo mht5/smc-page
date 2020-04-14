@@ -1,0 +1,24 @@
+<app-header [title]="title"></app-header>
+
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="stockExchange.name">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Brief</mat-label>
+    <input matInput [(ngModel)]="stockExchange.brief">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Contact Address</mat-label>
+    <input matInput [(ngModel)]="stockExchange.contactAddress">
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Remarks</mat-label>
+    <input matInput [(ngModel)]="stockExchange.remarks">
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="create()" color="primary" class="button">Create</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+</div>

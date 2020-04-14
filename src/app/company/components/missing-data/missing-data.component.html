@@ -1,0 +1,31 @@
+<app-header [title]="title"></app-header>
+
+<div class="col-12 content-center">
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>Company Name</mat-label>
+    <input matInput [(ngModel)]="company.name" disabled>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>From Date</mat-label>
+    <input matInput [(ngModel)]="fromDate" [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field><br />
+  <mat-form-field appearance="outline" class="input">
+    <mat-label>To Date</mat-label>
+    <input matInput [(ngModel)]="toDate" [matDatepicker]="picker1" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field><br />
+  <div style="width: 30%; margin-left: 35%;">
+    <button mat-button (click)="search()" color="primary" class="button">Search</button>
+    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  </div>
+  <div *ngIf="resultReady">
+    <mat-divider style="width: 90%; margin-left: 5%; margin-top: 1em;"></mat-divider>
+    <div style="margin-top: 1em;">
+      Dates for which stock price is not available for {{company.name}}:<br /><br/>
+      2020-01-01, 2020-01-10, 2020-02-20
+    </div>
+  </div>
+</div>
