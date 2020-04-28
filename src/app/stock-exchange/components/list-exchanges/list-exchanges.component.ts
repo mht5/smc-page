@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { StockExchange } from 'src/app/stock-exchange/models/stock-exchange.model';
+import { StockExchangeService } from 'src/app/stock-exchange/services/stock-exchange.service';
 
 @Component({
   selector: 'app-list-exchanges',
@@ -17,43 +18,10 @@ export class ListExchangesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private stockExchangeService: StockExchangeService
   ) {
-    this.stockExchanges = [
-      {
-        'id': 1,
-        'name': 'exchange1',
-        'brief': 'brief1',
-        'contactAddress': 'contactAddress1',
-        'remarks': 'remarks1'
-      },
-      {
-        'id': 2,
-        'name': 'exchange2',
-        'brief': 'brief2',
-        'contactAddress': 'contactAddress2'
-      },
-      {
-        'id': 3,
-        'name': 'exchange3',
-        'brief': 'brief3',
-        'contactAddress': 'contactAddress3',
-        'remarks': 'remarks3'
-      },
-      {
-        'id': 4,
-        'name': 'exchange4',
-        'brief': 'brief4',
-        'contactAddress': 'contactAddress4'
-      },
-      {
-        'id': 5,
-        'name': 'exchange5',
-        'brief': 'brief5',
-        'contactAddress': 'contactAddress5',
-        'remarks': 'remarks5'
-      },
-    ];
+    this.stockExchanges = this.stockExchangeService.getStockExchanges();
     this.dataSource = new MatTableDataSource(this.stockExchanges);
   }
 
