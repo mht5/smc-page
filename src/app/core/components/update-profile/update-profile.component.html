@@ -7,19 +7,26 @@
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="user.username">
+    <input matInput [(ngModel)]="user.username" [formControl]="username" id="username">
+    <mat-error *ngIf="username.errors && username.errors.required">Username is required.</mat-error>
+    <mat-error *ngIf="username.errors && username.errors.maxlength">The max length is 30.</mat-error>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Mobile Number</mat-label>
-    <input matInput [(ngModel)]="user.mobileNumber">
+    <input matInput [(ngModel)]="user.mobileNumber" [formControl]="mobileNumber" id="mobileNumber">
+    <mat-error *ngIf="mobileNumber.errors && mobileNumber.errors.maxlength">The max length is 11.</mat-error>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>New Password</mat-label>
-    <input matInput [(ngModel)]="newPassword" type="password">
+    <input matInput [(ngModel)]="password.value" [formControl]="password" id="password" type="password">
+    <mat-error *ngIf="password.errors && password.errors.required">Password is required.</mat-error>
+    <mat-error *ngIf="password.errors && password.errors.maxlength">The max length is 30.</mat-error>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Confirm Password</mat-label>
-    <input matInput [(ngModel)]="confirmPassword" type="password">
+    <input matInput [(ngModel)]="confirmPassword.value" [formControl]="confirmPassword" id="confirmPassword" type="password">
+    <mat-error *ngIf="confirmPassword.errors && confirmPassword.errors.required">Please confirm your password.</mat-error>
+    <mat-error *ngIf="confirmPassword.errors && confirmPassword.errors.maxlength">The max length is 30.</mat-error>
   </mat-form-field><br />
   <div style="width: 30%; margin-left: 35%;">
     <button mat-button (click)="update()" color="primary" class="button">Update</button>

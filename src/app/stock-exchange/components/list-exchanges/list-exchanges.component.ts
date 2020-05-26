@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
+
 import { StockExchange } from 'src/app/stock-exchange/models/stock-exchange.model';
 import { StockExchangeService } from 'src/app/stock-exchange/services/stock-exchange.service';
+import { DisplayService } from 'src/app/core/services/display.service';
 
 @Component({
   selector: 'app-list-exchanges',
@@ -19,15 +21,24 @@ export class ListExchangesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private stockExchangeService: StockExchangeService
+    private stockExchangeService: StockExchangeService,
+    private displayService: DisplayService
   ) {
-    this.stockExchanges = this.stockExchangeService.getStockExchanges();
-    this.dataSource = new MatTableDataSource(this.stockExchanges);
+    this.stockExchangeService.getStockExchanges().subscribe(
+      data => {
+        this.stockExchanges = data;
+        this.dataSource = new MatTableDataSource(this.stockExchanges);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.displayService.setMsg([]);
   }
 
   applyFilter(filterValue: string) {

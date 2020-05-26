@@ -4,15 +4,21 @@
 <div class="col-12 content-center">
   <mat-form-field appearance="outline" class="input">
     <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="user.username">
+    <input matInput [(ngModel)]="user.username" [formControl]="username" id="username">
+    <mat-error *ngIf="username.errors && username.errors.required">Username is required.</mat-error>
+    <mat-error *ngIf="username.errors && username.errors.maxlength">The max length is 30.</mat-error>
   </mat-form-field><br />
-  <mat-form-field appearance="outline" class="input">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="user.email">
-  </mat-form-field><br />
+    <mat-form-field appearance="outline" class="input">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="user.email" [formControl]="email" id="email">
+      <mat-error *ngIf="email.errors && email.errors.required">Email is required.</mat-error>
+      <mat-error *ngIf="email.errors && email.errors.email">The input value is not a valid email address.</mat-error>
+      <mat-error *ngIf="email.errors && email.errors.maxlength">The max length is 100.</mat-error>
+    </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Mobile Number</mat-label>
-    <input matInput [(ngModel)]="user.mobileNumber">
+    <input matInput [(ngModel)]="user.mobileNumber" [formControl]="mobileNumber" id="mobileNumber">
+    <mat-error *ngIf="mobileNumber.errors && mobileNumber.errors.maxlength">The max length is 11.</mat-error>
   </mat-form-field><br />
   <div style="width: 30%; margin-left: 35%;">
     <button mat-button (click)="register()" color="primary" class="button">Register</button>

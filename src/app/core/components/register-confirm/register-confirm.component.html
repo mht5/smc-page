@@ -1,7 +1,7 @@
 <div class="col-12 content-center">
   <h1>Confirm Registration</h1>
 </div>
-<div class="col-12 content-center">
+<div class="col-12 content-center" *ngIf="user">
   <mat-form-field appearance="outline" class="input">
     <mat-label>Email</mat-label>
     <input matInput [(ngModel)]="user.email" disabled>
@@ -16,11 +16,15 @@
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="password" type="password">
+    <input matInput [(ngModel)]="password.value" [formControl]="password" id="password" type="password">
+    <mat-error *ngIf="password.errors && password.errors.required">Password is required.</mat-error>
+    <mat-error *ngIf="password.errors && password.errors.maxlength">The max length is 30.</mat-error>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Confirm Password</mat-label>
-    <input matInput [(ngModel)]="confirmPassword" type="password">
+    <input matInput [(ngModel)]="confirmPassword.value" [formControl]="confirmPassword" id="confirmPassword" type="password">
+    <mat-error *ngIf="confirmPassword.errors && confirmPassword.errors.required">Please confirm your password.</mat-error>
+    <mat-error *ngIf="confirmPassword.errors && confirmPassword.errors.maxlength">The max length is 30.</mat-error>
   </mat-form-field><br />
   <div style="width: 30%; margin-left: 35%;">
     <button mat-button (click)="confirm()" color="primary" class="button">Confirm</button>

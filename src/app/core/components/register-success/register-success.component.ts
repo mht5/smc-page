@@ -20,7 +20,7 @@ export class RegisterSuccessComponent implements OnInit {
   }
 
   confirmRegistration() {
-    this.router.navigate(['/register-confirm/123']);
+    this.router.navigate(['/register-confirm/8']);
   }
 
 }

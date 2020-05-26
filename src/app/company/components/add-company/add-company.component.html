@@ -8,8 +8,7 @@
   <mat-form-field appearance="outline" class="input">
     <mat-label>Sector</mat-label>
     <mat-select [(ngModel)]="company.sectorId">
-      <mat-option value="sector1">sector1</mat-option>
-      <mat-option value="sector2">sector1</mat-option>
+      <mat-option  *ngFor = "let sector of sectorList;" value={{sector.id}}>{{sector.name}}</mat-option>
     </mat-select>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
@@ -21,7 +20,7 @@
     <input matInput [(ngModel)]="company.ceo">
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
-    <mat-label>Voard of Directors</mat-label>
+    <mat-label>Board of Directors</mat-label>
     <textarea matInput [(ngModel)]="company.boardOfDirectors"></textarea>
   </mat-form-field>
   <mat-form-field appearance="outline" class="input">
@@ -31,8 +30,10 @@
 
   IPO Related Items<br />
   <mat-form-field appearance="outline" class="input">
-    <mat-label>Stock Exchange ID</mat-label>
-    <input matInput [(ngModel)]="ipo.stockExchangeId">
+    <mat-label>Stock Exchange</mat-label>
+    <mat-select [(ngModel)]="ipo.stockExchangeId">
+      <mat-option *ngFor="let stockExchange of stockExchangeList;" value={{stockExchange.id}}>{{stockExchange.name}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline" class="input">
     <mat-label>Stock Code</mat-label>

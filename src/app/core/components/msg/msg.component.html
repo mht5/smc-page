@@ -1,0 +1,14 @@
+<!--<div class="col-12 msg success">
+  <p>You have successfully registered in the system.</p>
+</div>
+<div class="col-12 msg warning">
+  <p>You have successfully registered in the system.</p>
+</div>
+<div class="col-12 msg error">
+  <p>You have successfully registered in the system.</p>
+</div>-->
+<div *ngIf="msg != null && msg[1] != null && msg[1].length > 0">
+  <div class="col-12 msg {{msg[0]}}">
+    <p>{{msg[1]}}</p>
+  </div>
+</div>

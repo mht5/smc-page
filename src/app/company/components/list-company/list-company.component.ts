@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
+
 import { Company } from 'src/app/company/models/company.model';
 import { CompanyService } from 'src/app/company/services/company.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { DisplayService } from 'src/app/core/services/display.service';
 
 @Component({
   selector: 'app-list-company',
@@ -24,63 +26,22 @@ export class ListCompanyComponent implements OnInit {
   constructor(
     private router: Router,
     private companyService: CompanyService,
-    private userService: UserService
+    private userService: UserService,
+    private displayService: DisplayService
   ) {
-    this.companies = [
-      {
-        'id': 1,
-        'name': 'company1',
-        'sectorId': 'sector1',
-        'turnover': 123.321,
-        'ceo': 'C. Lock',
-        'boardOfDirectors': ' J. Peters, N. Holt, M, Sanders',
-        'listedInStockExchanges': 'Y',
-        'briefWriteup': 'this is company 1'
-      }, {
-        'id': 2,
-        'name': 'company2',
-        'sectorId': 'sector1',
-        'turnover': 111.222,
-        'ceo': 'C. Lock',
-        'boardOfDirectors': ' J. Peters, N. Holt, M, Sanders',
-        'listedInStockExchanges': 'Y',
-        'briefWriteup': 'this is company 2'
-      }, {
-        'id': 3,
-        'name': 'company3',
-        'sectorId': 'sector2',
-        'turnover': 222.333,
-        'ceo': 'C. Lock',
-        'boardOfDirectors': ' J. Peters, N. Holt, M, Sanders',
-        'listedInStockExchanges': 'Y',
-        'briefWriteup': 'this is company 3'
-      }, {
-        'id': 4,
-        'name': 'company4',
-        'sectorId': 'sector2',
-        'turnover': 333.444,
-        'ceo': 'C. Lock',
-        'boardOfDirectors': ' J. Peters, N. Holt, M, Sanders',
-        'listedInStockExchanges': 'Y',
-        'briefWriteup': 'this is company 4'
-      }, {
-        'id': 5,
-        'name': 'company5',
-        'sectorId': 'sector5',
-        'turnover': 444.555,
-        'ceo': 'C. Lock',
-        'boardOfDirectors': ' J. Peters, N. Holt, M, Sanders',
-        'listedInStockExchanges': 'Y',
-        'briefWriteup': 'this is company 5'
+    this.getCompanyList();
+    this.userService.isAdmin().subscribe(
+      data => {
+        this.isAdmin = data;
+      },
+      err => {
+        console.log(err);
       }
-    ];
-    this.dataSource = new MatTableDataSource(this.companies);
-    this.isAdmin = this.userService.isAdmin();
+    );
+    this.displayService.setMsg([]);
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -91,6 +52,20 @@ export class ListCompanyComponent implements OnInit {
     }
   }
 
+  getCompanyList() {
+    this.companyService.getCompanyList().subscribe(
+      data => {
+        this.companies = data;
+        this.dataSource = new MatTableDataSource(this.companies);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
   addCompany() {
     console.log('going to add new company.');
     this.router.navigate(['/company/add']);
@@ -98,6 +73,38 @@ export class ListCompanyComponent implements OnInit {
 
   findCompany() {
     console.log('find company: ' + this.companyName);
+    if (this.companyName == undefined || this.companyName.length < 1) {
+      this.companyService.getCompanyList().subscribe(
+        data => {
+          this.companies = data;
+          this.dataSource = new MatTableDataSource(this.companies);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.selectedCompany = undefined;
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.companyService.findCompanyByName(this.companyName).subscribe(
+        data => {
+          if (data != null) {
+            this.companies = [];
+            this.companies.push(data);
+            this.dataSource = new MatTableDataSource(this.companies);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.selectedCompany = undefined;
+          } else {
+            this.displayService.setMsg(['warning', 'No company with name \'' + this.companyName + '\' was found.']);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   updateSelected(company) {
@@ -116,6 +123,7 @@ export class ListCompanyComponent implements OnInit {
   updateIpo() {
     if (this.checkSelection()) {
       console.log('going to update IPO ' + this.selectedCompany['id']);
+      this.companyService.setCompany(this.selectedCompany);
       this.router.navigate(['/company/update-ipo/' + this.selectedCompany['id']]);
     }
   }
@@ -131,6 +139,19 @@ export class ListCompanyComponent implements OnInit {
   deactivate() {
     if (this.checkSelection()) {
       console.log('going to deactivate company ' + this.selectedCompany['id']);
+      this.companyService.deactivateCompany(this.selectedCompany['id']).subscribe(
+        data => {
+          if (data) {
+            this.displayService.setMsg(['success', 'The company has been deactivated.']);
+            this.findCompany();
+          } else {
+            this.displayService.setMsg(['error', 'The company has not been deactivated.']);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
     }
   }
 

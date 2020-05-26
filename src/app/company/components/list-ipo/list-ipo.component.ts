@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+
 import { IPO } from 'src/app/company/models/ipo.model';
+import { IpoService } from 'src/app/company/services/ipo.service';
+import { DisplayService } from 'src/app/core/services/display.service';
 
 @Component({
   selector: 'app-list-ipo',
@@ -15,58 +18,15 @@ export class ListIpoComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    this.ipos = [
-      {
-        'id': 1,
-        'stockExchangeId': '12',
-        'stockCode': 'NSW',
-        'pricePerShare': 12,
-        'numberOfShares': 2000,
-        'openDateTime': '2020-04-26 12:00',
-        'openDate': '2020-04-06',
-        'openTime': '12:00',
-        'remarks': 'this IPO starts soon.'
-      }, {
-        'id': 2,
-        'stockExchangeId': '12',
-        'stockCode': 'JKSF',
-        'pricePerShare': 34,
-        'numberOfShares': 2365,
-        'openDateTime': '2020-06-12 12:00',
-        'remarks': 'this IPO starts soon.'
-      }, {
-        'id': 3,
-        'stockExchangeId': '08',
-        'stockCode': 'KUS',
-        'pricePerShare': 10,
-        'numberOfShares': 4000,
-        'openDateTime': '2020-08-06 16:00',
-        'remarks': 'this IPO starts soon.'
-      }, {
-        'id': 4,
-        'stockExchangeId': '12',
-        'stockCode': 'UKL',
-        'pricePerShare': 42,
-        'numberOfShares': 3000,
-        'openDateTime': '2020-10-06 12:00',
-        'remarks': 'this IPO starts soon.'
-      }, {
-        'id': 5,
-        'stockExchangeId': '08',
-        'stockCode': 'AOP',
-        'pricePerShare': 10,
-        'numberOfShares': 2500,
-        'openDateTime': '2020-12-06 12:00',
-        'remarks': 'this IPO starts soon.'
-      },
-    ];
-    this.dataSource = new MatTableDataSource(this.ipos);
+  constructor(
+    private ipoService: IpoService,
+    private displayService: DisplayService
+  ) {
+    this.getPlannedIpos();
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.displayService.setMsg([]);
   }
 
   applyFilter(filterValue: string) {
@@ -75,6 +35,20 @@ export class ListIpoComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getPlannedIpos() {
+    this.ipoService.getPlannedIpos().subscribe(
+      data => {
+        this.ipos = data;
+        this.dataSource = new MatTableDataSource(this.ipos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

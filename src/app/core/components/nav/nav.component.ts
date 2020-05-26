@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -7,12 +10,35 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+
+  authenticated: boolean = false;
   isAdmin: boolean;
-  constructor(private userService: UserService) {
-    this.isAdmin = this.userService.isAdmin();
+
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {
+    this.userService.getUser().subscribe(
+      user => this.authenticated = user == undefined || user == null ? false : true
+    );
+    this.userService.isAdmin().subscribe(
+      isAdmin => this.isAdmin = isAdmin
+    );
   }
 
   ngOnInit() {
+  }
+
+  logout() {
+    console.log('logout');
+    var user: User = {
+      'admin': false,
+      username: '',
+      email: '',
+      confirmed: false
+    }
+    this.userService.setUser(user);
+    this.router.navigate(['/login']);
   }
 
 }

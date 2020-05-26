@@ -4,6 +4,6 @@ export interface User {
   password?: string;
   email: string;
   mobileNumber?: string;
-  isAdmin: string;
-  confirmed: string;
+  admin: boolean;
+  confirmed: boolean;
 }

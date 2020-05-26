@@ -1,47 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { HttpService } from 'src/app/core/services/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockExchangeService {
 
-  constructor() { }
+  constructor(
+    private httpService: HttpService
+  ) { }
 
-  getStockExchanges() {
-    return [
-      {
-        'id': 1,
-        'name': 'exchange1',
-        'brief': 'brief1',
-        'contactAddress': 'contactAddress1',
-        'remarks': 'remarks1'
-      },
-      {
-        'id': 2,
-        'name': 'exchange2',
-        'brief': 'brief2',
-        'contactAddress': 'contactAddress2'
-      },
-      {
-        'id': 3,
-        'name': 'exchange3',
-        'brief': 'brief3',
-        'contactAddress': 'contactAddress3',
-        'remarks': 'remarks3'
-      },
-      {
-        'id': 4,
-        'name': 'exchange4',
-        'brief': 'brief4',
-        'contactAddress': 'contactAddress4'
-      },
-      {
-        'id': 5,
-        'name': 'exchange5',
-        'brief': 'brief5',
-        'contactAddress': 'contactAddress5',
-        'remarks': 'remarks5'
-      },
-    ];
+  getStockExchanges(): Observable<any[]> {
+    var url = 'stock/list-all';
+    return this.httpService.get(url).pipe();
   }
+
+  addStockExchange(stockExchange): Observable<any> {
+    var url = 'stock/add';
+    return this.httpService.post(url, stockExchange).pipe();
+  }
+
 }

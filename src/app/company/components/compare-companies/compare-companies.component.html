@@ -5,30 +5,25 @@
     <mat-label>Compare Type</mat-label>
     <mat-select [(ngModel)]="compareType">
       <mat-option value="compareBetweenCompanies">Compare Between Companies</mat-option>
-      <mat-option value="compareBetweenTimePeriods">Compare Between Time Periods</mat-option>
+      <!--<mat-option value="compareBetweenTimePeriods">Compare Between Time Periods</mat-option>-->
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline" class="input">
     <mat-label>Stock Exchange</mat-label>
     <mat-select [(ngModel)]="stockExchangeId">
-      <mat-option value="BSE">BSE</mat-option>
-      <mat-option value="NSE">NSE</mat-option>
+      <mat-option *ngFor="let stockExchange of stockExchangeList;" value={{stockExchange.id}}>{{stockExchange.name}}</mat-option>
     </mat-select>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
-    <mat-label>Company Name 1</mat-label>
-    <mat-select [(ngModel)]="companyName1">
-      <mat-option value="company1">Company 1</mat-option>
-      <mat-option value="company2">Company 2</mat-option>
-      <mat-option value="company3">Company 3</mat-option>
+    <mat-label>Company</mat-label>
+    <mat-select [(ngModel)]="companyId1">
+      <mat-option *ngFor="let company of companies;" value={{company.id}}>{{company.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline" class="input">
-    <mat-label>Company Name 2</mat-label>
-    <mat-select [(ngModel)]="companyName2">
-      <mat-option value="company1">Company 1</mat-option>
-      <mat-option value="company2">Company 2</mat-option>
-      <mat-option value="company3">Company 3</mat-option>
+    <mat-label>Company to be compared with</mat-label>
+    <mat-select [(ngModel)]="companyId2">
+      <mat-option *ngFor="let company of companies;" value={{company.id}}>{{company.name}}</mat-option>
     </mat-select>
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
@@ -43,9 +38,10 @@
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field><br />
-  <div style="width: 30%; margin-left: 35%;">
-    <button mat-button (click)="generateChart()" color="primary" class="button">Generate Chart</button>
-    <button mat-button (click)="clear()" color="accent" class="button">Cancel</button>
+  <div style="width: 50%; margin-left: 25%;">
+    <button mat-button (click)="generateChart()" color="primary" class="button" style="width: 33%;">Generate Chart</button>
+    <button mat-button (click)="downloadChart()" color="primary" class="button" style="width: 33%;">Download Chart</button>
+    <button mat-button (click)="clear()" color="accent" class="button" style="width: 33%;">Cancel</button>
   </div>
 </div>
 <div class="col-12 content-center" *ngIf="chartReady">

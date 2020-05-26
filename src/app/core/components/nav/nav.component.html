@@ -2,28 +2,30 @@
   <div class="column col-2">
     <button mat-button color="primary" class="nav-button">Stock Exchange Charting</button>
   </div>
-  <div class="column col-2" *ngIf="isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/stock-exchange">Manage Exchanges</a>
-  </div>
-  <div class="column col-2" *ngIf="isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/company">Manage Companies</a>
-  </div>
-  <div class="column col-2" *ngIf="isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/company/import-price">Import Data</a>
-  </div>
-  <div class="column col-2" *ngIf="!isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/company">Companies</a>
-  </div>
-  <div class="column col-2" *ngIf="!isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/company/list-ipo">IPOs</a>
-  </div>
-  <div class="column col-2" *ngIf="!isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/company/compare-companies">Compare Companies</a>
-  </div>
-  <div class="column col-2" *ngIf="!isAdmin">
-    <a mat-button color="primary" class="nav-button" href="/update-profile">Update Profile</a>
-  </div>
-  <div class="column col-2">
-    <a mat-button color="primary" class="nav-button" href="/login">Logout</a>
-  </div>
+  <ng-container *ngIf="authenticated">
+    <div class="column col-2" *ngIf="isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/stock-exchange">Manage Exchanges</a>
+    </div>
+    <div class="column col-2" *ngIf="isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/company">Manage Companies</a>
+    </div>
+    <div class="column col-2" *ngIf="isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/company/import-price">Import Data</a>
+    </div>
+    <div class="column col-2" *ngIf="!isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/company">Companies</a>
+    </div>
+    <div class="column col-2" *ngIf="!isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/company/list-ipo">IPOs</a>
+    </div>
+    <div class="column col-2" *ngIf="!isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/company/compare-companies">Compare Companies</a>
+    </div>
+    <div class="column col-2" *ngIf="!isAdmin">
+      <a mat-button color="primary" class="nav-button" routerLink="/update-profile">Update Profile</a>
+    </div>
+    <div class="column col-2">
+      <a mat-button color="primary" class="nav-button" (click)="logout()">Logout</a>
+    </div>
+  </ng-container>
 </div>

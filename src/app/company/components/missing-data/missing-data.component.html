@@ -24,8 +24,8 @@
   <div *ngIf="resultReady">
     <mat-divider style="width: 90%; margin-left: 5%; margin-top: 1em;"></mat-divider>
     <div style="margin-top: 1em;">
-      Dates for which stock price is not available for {{company.name}}:<br /><br/>
-      2020-01-01, 2020-01-10, 2020-02-20
+      Dates for which stock price is not available for {{company.name}}:<br /><br />
+      {{datesWithMissingData}}
     </div>
   </div>
 </div>

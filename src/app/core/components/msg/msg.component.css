@@ -1,0 +1,20 @@
+.msg {
+  padding-left: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 0.1em;
+}
+
+.success {
+  background-color: #DEFBE6;
+  color: #054830;
+}
+
+.warning {
+  background-color: #FDF0BF;
+  color: #232323;
+}
+
+.error {
+  background-color: #FFD7D9;
+  color: #AF1A0F;
+}

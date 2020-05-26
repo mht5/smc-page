@@ -7,10 +7,10 @@
   </mat-form-field>
   <mat-form-field appearance="outline" class="input">
     <mat-label>Sector</mat-label>
-    <mat-select [(ngModel)]="company.sectorId">
-      <mat-option value="sector1">sector1</mat-option>
-      <mat-option value="sector2">sector1</mat-option>
-    </mat-select>
+    <input matInput [(ngModel)]="company.sectorId" disabled>
+    <!--<mat-select [(ngModel)]="company.sectorId">
+    <mat-option *ngFor="let sector of sectorList;" value={{sector.id}}>{{sector.name}}</mat-option>
+  </mat-select>-->
   </mat-form-field><br />
   <mat-form-field appearance="outline" class="input">
     <mat-label>Turnover</mat-label>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Md5 } from 'ts-md5';
+
 import { User } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { DisplayService } from 'src/app/core/services/display.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -13,36 +18,78 @@ export class UpdateProfileComponent implements OnInit {
     'username': 'mohan',
     'email': 'mhtang@google.com',
     'mobileNumber': '123456',
-    'isAdmin': 'N',
-    'confirmed': 'Y'
+    'admin': false,
+    'confirmed': true
   };
-  newPassword: string;
-  confirmPassword: string;
-  constructor() { }
+  username = new FormControl('', [Validators.required, Validators.maxLength(30)]);
+  mobileNumber = new FormControl('', [Validators.maxLength(11)]);
+  password = new FormControl('', [Validators.maxLength(30)]);
+  confirmPassword = new FormControl('', [Validators.maxLength(30)]);
+  constructor(
+    private userService: UserService,
+    private displayService: DisplayService
+  ) { }
 
   ngOnInit() {
+    this.getUserInfo();
+    this.displayService.setMsg([]);
+  }
+
+  getUserInfo(): void {
+    this.userService.getUser().subscribe(
+      data => {
+        this.user = data;
+      }
+    )
+  }
+
+  validateInput(): boolean {
+    document.getElementById('username').click();
+    document.getElementById('mobileNumber').click();
+    document.getElementById('password').click();
+    document.getElementById('confirmPassword').click();
+    if (this.username.errors != null || this.mobileNumber.errors != null || this.password.errors != null || this.confirmPassword.errors != null) {
+      return false;
+    } else if (this.confirmPassword.value != this.password.value) {
+      this.displayService.setMsg(['error', 'The password you entered does not match, please enter again.']);
+      return false;
+    }
+    return true;
   }
 
   update() {
-    if (this.newPassword != undefined && this.confirmPassword != this.newPassword) {
-      alert('The password you entered does not match, please enter again.');
-    } else {
-      this.user['password'] = this.newPassword;
+    if (this.validateInput()) {
+      this.displayService.setMsg([]);
+      if (this.password.value.length > 0) {
+        this.user['password'] = Md5.hashStr(this.password.value).toString();
+      } 
       console.log('updating user profile: ', this.user);
+      this.userService.updateUser(this.user).subscribe(
+        data => {
+          console.log(data);
+          if (data) {
+            this.displayService.setMsg(['success', 'You have successfully updated your profile.']);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      )
     }
   }
 
   clear() {
-    this.user = {
+    /* this.user = {
       'id': 84759182,
       'username': 'mohan',
       'email': 'mhtang@google.com',
       'mobileNumber': '123456',
-      'isAdmin': 'N',
-      'confirmed': 'Y'
-    };
-    this.newPassword = undefined;
-    this.confirmPassword = undefined;
+      'admin': false,
+      'confirmed': true
+    }; */
+    this.getUserInfo();
+    this.password.setValue(undefined);
+    this.confirmPassword.setValue(undefined);
   }
 
 }
